@@ -1,12 +1,18 @@
 let DropChoise 
-let result = []
 const row = document.querySelector("tbody")
+let result = []
 
-async function table() { //funzione asicrona per far apparire la tabella 
+async function getusers() { //funzione asicrona per recuperare la tabella 
     const response = await fetch("https://jsonplaceholder.typicode.com/users")
     const data = await response.json()
-   
-    row.innerHTML =  data.map(user => 
+    return data
+    
+}
+
+function DisplayUsers(data) {//funzione  per mostrare la tabella 
+    result = data
+
+    row.innerHTML =  result.map(user => 
         
         `<tr>
                 <th scope="user">${user["id"]}</th>
@@ -15,13 +21,17 @@ async function table() { //funzione asicrona per far apparire la tabella
                 <td>${user["name"]}</td>
          </tr>` 
     ).join("")
-    result = data
-    return result
-    
 }
 
-table() //funzione asicrona per far apparire la tabella 
 
+
+window.onload = async function () {
+    
+    const usersdata = await getusers()
+    DisplayUsers(usersdata)
+    
+
+}
 
 document.querySelectorAll('li').forEach( function(li) { //inserisco event listener per modificare il titolo del drop e prendere la viaribile da filtrare
             
@@ -32,6 +42,8 @@ document.querySelectorAll('li').forEach( function(li) { //inserisco event listen
         
     });
 });
+
+
 
 function text() { //funzione che aggiorna il dom in base all'input value search
     
@@ -60,8 +72,6 @@ function text() { //funzione che aggiorna il dom in base all'input value search
         }
     }
 }
-
-
 
 
 
