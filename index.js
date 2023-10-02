@@ -5,9 +5,7 @@ const row = document.querySelector("tbody")
 async function table() { //funzione asicrona per far apparire la tabella 
     const response = await fetch("https://jsonplaceholder.typicode.com/users")
     const data = await response.json()
-    data.forEach(user => {
-        result.push(user)
-    })
+   
     row.innerHTML =  data.map(user => 
         
         `<tr>
@@ -17,11 +15,13 @@ async function table() { //funzione asicrona per far apparire la tabella
                 <td>${user["name"]}</td>
          </tr>` 
     ).join("")
-    return data
+    result = data
+    return result
     
 }
 
 table() //funzione asicrona per far apparire la tabella 
+
 
 document.querySelectorAll('li').forEach( function(li) { //inserisco event listener per modificare il titolo del drop e prendere la viaribile da filtrare
             
